@@ -16,6 +16,8 @@ spec:
           spec:
             nodeSelector:
              cloud.google.com/gke-accelerator: nvidia-tesla-a100
+            hostNetwork: true
+            dnsPolicy: ClusterFirstWithHostNet
             containers:
             - name: pytorch
               image: us-east1-docker.pkg.dev/rick-vertex-ai/gke-llm/torch-benchmark:latest

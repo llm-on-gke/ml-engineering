@@ -24,18 +24,7 @@ gcloud container clusters create $CLUSTER_NAME --location ${REGION} \
   --ephemeral-storage-local-ssd=count=2 \
   --scopes="gke-default,storage-rw"
 
-gcloud container node-pools create a2-pool   --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest   --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster     --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 2 --max-nodes 4   --ephemeral-storage-local-ssd=count=0 --spot
+gcloud container node-pools create a2-pool   --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest   --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster     --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 0 --max-nodes 4   --ephemeral-storage-local-ssd=count=0 --spot
 
 
-gcloud container node-pools create a2-pool \
---accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest  \
---machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster  
---node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 2 --max-nodes 4 \
---ephemeral-storage-local-ssd=count=0 --spot --enable-gvnic
-
-
-kubectl annotate serviceaccount $NAMESPACE \
-    --namespace $NAMESPACE \
-    iam.gke.io/gcp-service-account=$GCE_SA
-
-kubectl create secret generic huggingface --from-literal="HF_TOKEN=$HF_TOKEN" -n $NAMESPACE
+gcloud container node-pools create a2-gvnic-pool --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest  --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster  --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 0 --max-nodes 4 --ephemeral-storage-local-ssd=count=0 --spot --enable-gvnic
