@@ -14,6 +14,8 @@ spec:
         backoffLimit: 0
         template:
           spec:
+            nodeSelector:
+             cloud.google.com/gke-accelerator: nvidia-tesla-a100
             containers:
             - name: pytorch
               image: us-east1-docker.pkg.dev/rick-vertex-ai/gke-llm/torch-benchmark:latest
