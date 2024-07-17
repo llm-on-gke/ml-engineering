@@ -8,13 +8,10 @@ spec:
   - name: workers
     template:
       spec:
-        parallelism: 2
-        completions: 2
+        parallelism: 10
+        completions: 10
         backoffLimit: 0
         template:
-          metadata:
-            annotations:
-               gke-gcsfuse/volumes: "true"
           spec:
            nodeSelector:
              cloud.google.com/gke-accelerator: nvidia-h100-80gb
@@ -43,4 +40,4 @@ spec:
               - bash
               - -xc
               - |
-                torchrun --rdzv_id=123 --nnodes=4 --nproc_per_node=1 --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT --node_rank=$RANK mnist.py --epochs=3 --log-interval=1  
+                torchrun --rdzv_id=123 --nnodes=10 --nproc_per_node=8 --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT --node_rank=$RANK mnist.py --epochs=10 --log-interval=1  
