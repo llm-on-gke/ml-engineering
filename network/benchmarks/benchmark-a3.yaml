@@ -19,7 +19,8 @@ spec:
             hostNetwork: true
             dnsPolicy: ClusterFirstWithHostNet
             containers:
-            - image: us-docker.pkg.dev/gce-ai-infra/gpudirect-tcpx/tcpgpudmarxd-dev:v2.0.9
+            - name: tcpx-daemon 
+              image: us-docker.pkg.dev/gce-ai-infra/gpudirect-tcpx/tcpgpudmarxd-dev:v2.0.9
               imagePullPolicy: Always
               command:
                 - /tcpgpudmarxd/build/app/tcpgpudmarxd
