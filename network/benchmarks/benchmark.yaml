@@ -35,6 +35,8 @@ spec:
               # Force python to not buffer output and write directly to stdout, so we can view training logs via `kubectl logs`.
               - name: PYTHONUNBUFFERED
                 value: "0"
+              - name: OMP_NUM_THREADS
+                value: "1"
               resources:
                 limits:
                   nvidia.com/gpu: 8
@@ -51,4 +53,4 @@ spec:
                 --role $MASTER_ADDR: \
                 --tee 3 \
                 all_reduce_bench.py
-                #torchrun --rdzv_id=123 --nnodes=2 --nproc_per_node=8 --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT --node_rank=$RANK all_reduce_bench.py --epochs=1 --log-interval=1  
+                #torchrun --rdzv_id=123 --nnodes=2 --nproc_per_node=8 --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT --node_rank=$LOCAL_RANK all_reduce_bench.py --epochs=1 --log-interval=1  
