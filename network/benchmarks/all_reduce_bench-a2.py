@@ -77,17 +77,6 @@ import socket
 import torch
 import torch.distributed as dist
 
-from torch.distributed.elastic.multiprocessing.errors import (
-    ChildFailedError,
-    get_error_handler,
-    # potentially include: record  (depending on your PyTorch version)
-)
-
-
-error_handler = get_error_handler()
-error_handler.initialize()
-
-
 TRIALS = 5
 
 # these emulate the payload which will become a M * N * 4-sized tensor below
@@ -156,12 +145,4 @@ def init_processes(local_rank, fn, backend='nccl'):
 
 if __name__ == "__main__":
     local_rank = int(os.environ["LOCAL_RANK"])
-    try:
-      init_processes(local_rank=local_rank, fn=run)
-    except ChildFailedError as e:
-      _, failure = e.get_first_failure()
-      error_handler.dump_error_file(failure.error_file, failure.exitcode)
-      raise
-    except Exception as e:
-      error_handler.record(e)
-      raise
+    init_processes(local_rank=local_rank, fn=run)
