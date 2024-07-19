@@ -48,7 +48,7 @@ spec:
                - name: LD_LIBRARY_PATH
                  value: /usr/local/nvidia/lib64
             - name: pytorch
-              image: us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/pytorch-mnist:latest
+              image: gcr.io/northam-ce-mlai-tpu/pytorch-mnist-gpu:latest #us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/pytorch-mnist:latest
               ports:
               - containerPort: 3389
               securityContext:
@@ -127,7 +127,7 @@ spec:
               - bash
               - -xc
               - |
-                torchrun --rdzv_id=123 --nnodes=$NNODES --nproc_per_node=8 --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT --node_rank=$LOCAL_RANK  mnist.py --epochs=1 --log-interval=1 --epochs=50 --log-interval=1  
+                torchrun --rdzv_id=123 --nnodes=$NNODES --nproc_per_node=8 --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT --node_rank=$LOCAL_RANK  mnist.py --epochs=1 --log-interval=1 --epochs=10 --log-interval=1  
               volumeMounts:
                - name: tcpx-socket
                  mountPath: /tmp
