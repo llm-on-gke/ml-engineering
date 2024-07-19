@@ -10,6 +10,7 @@ gcloud config set project "$PROJECT_ID"
 gcloud config set compute/region "$REGION"
 gcloud config set compute/zone "$ZONE_1"
 
+## default cluster
 gcloud container clusters create $CLUSTER_NAME --location ${REGION} \
   --workload-pool ${PROJECT_ID}.svc.id.goog \
   --enable-image-streaming --enable-shielded-nodes \
@@ -22,9 +23,11 @@ gcloud container clusters create $CLUSTER_NAME --location ${REGION} \
   --machine-type n2d-standard-4 \
   --num-nodes 1 --min-nodes 1 --max-nodes 3 \
   --ephemeral-storage-local-ssd=count=2 \
+  --network natt-a3-base-sysnet --create-subnetwork name=gke-subnet,range=/20 \
+  --enable-dataplane-v2 \
   --scopes="gke-default,storage-rw"
 
-gcloud container node-pools create a2-pool   --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest   --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster     --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 0 --max-nodes 4   --ephemeral-storage-local-ssd=count=0 --spot
+gcloud container node-pools create a2-pool   --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest   --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster     --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 0 --max-nodes 4   --ephemeral-storage-local-ssd=count=0 --spot 
 
 
-gcloud container node-pools create a2-gvnic-pool --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest  --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster  --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 0 --max-nodes 4 --ephemeral-storage-local-ssd=count=0 --spot --enable-gvnic
+gcloud container node-pools create a2-gvnic-pool --accelerator type=nvidia-tesla-a100,count=8,gpu-driver-version=latest  --machine-type a2-highgpu-8g   --region us-central1 --cluster two-sigma-cluster  --node-locations us-central1-b   --enable-autoscaling    --min-nodes 0    --num-nodes 0 --max-nodes 4 --ephemeral-storage-local-ssd=count=8 --spot --enable-gvnic --enable-fast-socket --enable-private-nodes

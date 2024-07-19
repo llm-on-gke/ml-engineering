@@ -42,7 +42,7 @@ Important notes:
 To run on 4 nodes:
 
 GPUS_PER_NODE=8
-NNODES=4
+NNODES=2
 MASTER_ADDR=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)
 MASTER_PORT=6000
 python -u -m torch.distributed.run \
