@@ -134,6 +134,8 @@ spec:
                - name: libraries
                  mountPath: /usr/local/nvidia/lib64
                  readOnly: true
+               - name: data
+                 mountPath: /data
             volumes:
             - name: libraries
               hostPath:
@@ -146,3 +148,5 @@ spec:
             - name: proc-sys
               hostPath:
                 path: /proc/sys
+            - name: data
+              emptyDir: {}
