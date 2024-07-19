@@ -48,7 +48,7 @@ spec:
                - name: LD_LIBRARY_PATH
                  value: /usr/local/nvidia/lib64
             - name: pytorch
-              image: gcr.io/northam-ce-mlai-tpu/gke-llm/llama-factory:latest #us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/pytorch-mnist:latest
+              image: us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/llama-factory:latest #us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/pytorch-mnist:latest
               ports:
               - containerPort: 3389
               securityContext:
