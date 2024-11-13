@@ -87,7 +87,7 @@ spec:
                   value: /usr/local/nvidia/lib64
 
             - name: pytorch
-              image: us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/llama-benchmark:latest
+              image: us-east1-docker.pkg.dev/northam-ce-mlai-tpu/gke-llm/torch-benchmark:latest
               imagePullPolicy: Always
               # image: gcr.io/k8s-staging-jobset/pytorch-mnist:latest
               ports:
