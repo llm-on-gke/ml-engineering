@@ -63,7 +63,7 @@ spec:
 
             containers:
             - name: tcpxo-daemon
-              image: us-docker.pkg.dev/gce-ai-infra/gpudirect-tcpxo/tcpgpudmarxd-dev:v1.0.11
+              image: us-docker.pkg.dev/gce-ai-infra/gpudirect-tcpxo/tcpgpudmarxd-dev:v1.0.12
               imagePullPolicy: Always
               command: ["/bin/sh", "-c"]
               args:
